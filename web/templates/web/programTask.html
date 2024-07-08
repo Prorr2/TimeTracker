@@ -1,0 +1,35 @@
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Task</title>
+</head>
+<body class="w-screen h-screen bg-base flex flex-col justify-center items-center gap-10">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="flex flex-row justify-between p-8 gap-5 w-80 scale-110">
+            <input type="text" placeholder="Search Task" name="name" class="p-3 rounded-md font-medium" required/>
+            <input type="submit" value="Enter" class="bg-secondary p-3 cursor-pointer rounded-md font-medium"/>
+        </div>
+    </form>
+    <form action="/endpoint/ProgramTaskAction" method="POST" class="flex flex-col h-5/6 w-full items-center gap-20">
+        {% csrf_token %}
+        <div class="flex flex-col gap-8">
+            <input type="date" class="p-3 cursor-pointer rounded-md font-medium" name="date"/>
+            <div class="flex flex-row gap-2 items-center">
+                <label for="time" class="text-pretty text-white text-2xl bg-neutral rounded-lg p-3">Init: </label>
+                <input type="time" class="p-3 cursor-pointer rounded-md font-medium" name="time" id="time"/>
+            </div>
+            <div class="flex flex-row gap-2 items-center">
+                <label for="hours" class="text-pretty text-white text-2xl bg-neutral rounded-lg p-3">Total Time: </label>
+                <input type="time" class="p-3 cursor-pointer rounded-md font-medium" name="hours" id="hours"/>
+            </div>
+        </div>
+        <div class="flex flex-col h-5/6 w-full items-center">
+        {% include 'web/components/tasksProgram.html' %}
+        </div>
+    </form>
+</body>
+</html>

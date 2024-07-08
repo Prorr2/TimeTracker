@@ -1,0 +1,41 @@
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Timer Tracker</title>
+</head>
+<body class="w-screen h-screen bg-base flex flex-row justify-center items-center gap-10">
+    <a href="/taskByDay" class="bg-secondary p-3 cursor-pointer rounded-md font-medium  ml-2 self-center fixed top-10 left-10 text-center">Program a Task</a>
+    <a href="/off" class="bg-secondary p-3 cursor-pointer rounded-md font-medium  ml-2 self-center fixed top-10 right-10 text-center">Log out</a>
+    <div class="flex flex-row gap-5 h-5/6 w-full justify-center">
+        <a href="/schedule/1" class="bg-secondary p-3 cursor-pointer rounded-md font-medium  ml-2 h-2/6 self-center fixed top-50 pt-32 left-0 text-center" onClick="handleClick()">7 days Schedule</a>
+            <div class="flex flex-col w-full items-center gap-10" id="tasks">
+                {% include 'web/components/new-task.html' %}
+                {% include 'web/components/tasks.html' %}
+            </div>
+    </div>
+</body>
+</html>
+<script>
+    {% if schedule %}
+    schedule = document.getElementById("schedule")
+    tasks = document.getElementById("tasks")
+    schedule.style.display = "flex"
+    tasks.style.display = "none"
+    {% endif %}
+    function handleClick(){
+        schedule = document.getElementById("schedule")
+        tasks = document.getElementById("tasks")
+        if(schedule.style.display == "none"){
+            schedule.style.display = "flex"
+            tasks.style.display = "none"
+
+        } else{
+            schedule.style.display = "none"
+            tasks.style.display = "flex"
+
+        }
+    }
+</script>

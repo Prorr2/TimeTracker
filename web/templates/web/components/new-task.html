@@ -1,0 +1,7 @@
+<form method="POST" action="/endpoint/new-task">
+    {% csrf_token %}
+    <div class="flex flex-row justify-between p-8 gap-5 w-80 scale-110">
+        <input type="text" placeholder="Submit new task" name="name" class="p-3 rounded-md font-medium" required/>
+        <input type="submit" value="Enter" class="bg-secondary p-3 cursor-pointer rounded-md font-medium"/>
+    </div>
+    </form>

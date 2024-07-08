@@ -1,0 +1,52 @@
+<a href="/home" class="bg-secondary p-3 cursor-pointer rounded-md font-medium  ml-2 h-2/6 self-center absolute top-50 pt-32 left-0 text-center" onClick="handleClick()">Back home</a>
+<div class="flex flex-col">
+    <div class="flex flex-row">
+            <a  href="/schedule/{{index_more}}" class="bg-secondary p-3 cursor-pointer rounded-md font-medium  ml-2 self-center"><=</a>
+        {% if index_less %}
+            <a href="/schedule/{{index_less}}" class="bg-secondary p-3 cursor-pointer rounded-md font-medium  ml-2 self-center">=></a>
+        {% endif %}
+    </div>
+    <div class="flex flex-row gap-5 w-full pt-20 justify-center p-5" >
+        {% for List in Records %}
+        <div class="flex flex-col gap-2">
+            {% if List.0.date %}
+                <div class="flex flex-col justify-center items-center bg-primary p-5">
+                    <h1>{{List.0.date|date:"D, d"}}</h1>
+                </div>
+            {% endif %}
+            {% for Record in List%}
+                {% if Record.date in Fire %}
+                    {% for key, value in Fire.items %}
+                {% if Record.date == key %}
+                    <div class="flex flex-col justify-center items-center bg-yellow-500 p-3">
+                        <h1>{{value}} 🔥</h1>
+                    </div>
+                {% endif %}
+                {% endfor %}
+                {% endif%}
+            {% endfor %}
+            {% for Record in List %}
+                {% if Record.date %}
+                <div class="flex flex-row gap-2 items-center">
+                        <div class="flex flex-col bg-neutral">
+                            <div class="flex flex-row content-center justify-around gap-10  p-3 px-10">
+                                <h1 class="text-pretty text-white">{{Record.name}}</h1>
+                            </div>
+                            <div class="flex flex-row items-center justify-around gap-10 p-3 px-10">
+                                <h1 class="text-pretty text-white">Date: {{Record.date|date:"H:i"}}</h1>
+                                <h1 class="text-pretty text-white">Total Minutes: {{Record.minutes}}</h1>
+                            </div>
+                            
+                        </div>
+                        <form method="POST" action="">
+                            {% csrf_token%}
+                            <input type="hidden" value="{{Record.id}}" name="id"/>
+                            <input type="submit" value="-" class="bg-red-600 text-white text-pretty p-3 rounded-md cursor-pointer"/>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>

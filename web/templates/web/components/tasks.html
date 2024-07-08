@@ -1,0 +1,32 @@
+<div class="grid grid-cols-2 gap-10 justify-center items-center w-4/6" rows=2>
+    {% for Task in Tasks%}
+    <form action="/endpoint/action" method="POST">
+        {% csrf_token %}
+        <div class="flex flex-col bg-neutral mx-10">
+            <div class="flex flex-row w-[93%] justify-between px-10">
+                <div class="flex flex-col  justify-center items-start gap-7  p-3 ">
+                    <h1 class="text-pretty text-xl text-emerald-400">{{Task.name}}</h1>
+                    <h1 class="text-pretty text-white">Started At: {{Task.real_init}}</h1>
+                    <input type="hidden" value={{Task.id}} name="id"/>
+                </div>
+                    <div class="flex flex-col justify-center items-end gap-7 p-3 ">
+                        <div class="flex flex-row gap-5">
+                            {% if Task.init %}
+                                <input type="submit" value="Finish" class="bg-primary p-2 cursor-pointer rounded-sm" name="action"/>
+                            {% else %}
+                                <input type="submit" value="Init" class="bg-primary p-2 cursor-pointer rounded-sm" name="action"/>
+                            {% endif %}
+                                <input type="submit" value="Reset" class="bg-primary p-2 cursor-pointer rounded-sm" name="action"/>
+                        </div>
+                        {% if Task.minutes > 0%}
+                        <div class="flex flex-row">
+                            <h1 class="text-pretty text-black bg-secondary p-1 rounded-lg">{{Task.minutes}} Min</h1>
+                        </div>
+                        {% else %}
+                        {% endif%}
+                    </div>
+            </div>
+        </div>
+    </form>
+    {% endfor %}
+</div>
